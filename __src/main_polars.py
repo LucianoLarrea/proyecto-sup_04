@@ -2,22 +2,23 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-import pandas as pd
+import polars as pl
 
-df = pd.read_csv('chocobar.csv', sep=',')
+df = pl.read_csv('chocobar.csv', sep=',', infer_schema_length=10000)
 
-df1 = df.query('cacao =="100%"')
+df1 = df.filter(pl.col('cacao')=='100%')
 dic1 = df1.to_dict()
 
-df2 = df.sort_values(by='porcentaje', ascending=False)
+sorted_df = df.sort(by='cacao', descending=True)
+df2 = sorted_df.head(10)
 dic2 = df2.to_dict()
 
 df3 = df
 dic3 = df3.to_dict()
 
 mean_ref = df['ref'].mean()
-df4 = df.query('ref < ' + str(mean_ref))
-df4 = df4[['company','ref','res']]
+df4 = df.filter(pl.col('ref')<mean_ref)
+df4 = df4.select(pl.col(['company','ref','res']))
 dic4 = df4.to_dict()
 
 
@@ -27,8 +28,8 @@ async def index():
 
 @app.get('/puro')
 async def puro():
-    return dic1
-
+    return{'estado','funcionando'} 
+# dic1
 
 @app.get('/top10')
 async def top10():
@@ -44,3 +45,4 @@ async def full():
 async def ref():
     return{'estado','funcionando'} 
 # dic4
+
