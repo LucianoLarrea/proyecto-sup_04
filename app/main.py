@@ -27,20 +27,21 @@ async def index():
 
 @app.get('/puro')
 async def puro():
-    return dic1
+    return{'estado1','funcionando'} 
+# dic1
 
 
 @app.get('/top10')
 async def top10():
-    return{'estado','funcionando'} 
+    return{'estado2','funcionando'} 
 # dic2
 
 @app.get('/full')
 async def full():
-    return{'estado','funcionando'} 
+    return{'estado3','funcionando'} 
 #dic3
 
 @app.get('/ref')
 async def ref():
-    return{'estado','funcionando'} 
+    return{'estado4','funcionando'} 
 # dic4
