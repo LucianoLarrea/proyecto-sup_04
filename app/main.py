@@ -3,8 +3,11 @@ from fastapi import FastAPI
 app = FastAPI()
 
 import polars as pl
+import os
 
-df = pl.read_csv('chocobar.csv', sep=',', infer_schema_length=10000)
+file_path = '../data/chocobar.csv'
+absolute_path = os.path.abspath(file_path)
+df = pl.read_csv(absolute_path, sep=',', infer_schema_length=10000)
 
 df1 = df.filter(pl.col('cacao')=='100%')
 dic1 = df1.to_dict()
@@ -28,16 +31,20 @@ async def index():
 
 @app.get('/puro')
 async def puro():
-    return dic1
+    return{'estado','funcionando'} 
+# dic1
 
 @app.get('/top10')
 async def top10():
-    return dic2
+    return{'estado','funcionando'} 
+# dic2
 
 @app.get('/full')
 async def full():
-    return dic3
+    return{'estado','funcionando'} 
+#dic3
 
 @app.get('/ref')
 async def ref():
-    return dic4
+    return{'estado','funcionando'} 
+# dic4
