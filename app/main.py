@@ -4,12 +4,12 @@ app = FastAPI()
 
 import polars as pl
 
-df = pl.read_csv('./data/chocobar.csv', sep=',', infer_schema_length=10000)
+df = pl.read_csv('chocobar.csv', sep=',', infer_schema_length=10000)
 
 df1 = df.filter(pl.col('cacao')=='100%')
 dic1 = df1.to_dict()
 
-sorted_df = df.sort(by='cacao', reverse=True)
+sorted_df = df.sort(by='cacao', descending=True)
 df2 = sorted_df.head(10)
 dic2 = df2.to_dict()
 
