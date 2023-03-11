@@ -3,11 +3,8 @@ from fastapi import FastAPI
 app = FastAPI()
 
 import polars as pl
-import os
 
-file_path = '../data/chocobar.csv'
-absolute_path = os.path.abspath(file_path)
-df = pl.read_csv(absolute_path, sep=',', infer_schema_length=10000)
+df = pl.read_csv('chocobar.csv', sep=',', infer_schema_length=10000)
 
 df1 = df.filter(pl.col('cacao')=='100%')
 dic1 = df1.to_dict()

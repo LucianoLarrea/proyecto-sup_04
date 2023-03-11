@@ -5,6 +5,4 @@ RUN pip install polars
 
 COPY ./app .
 
-COPY ./data ./data
 
-COPY ./main.ipynb .
